@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block title %}Panel de Control - SISALUD{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <h2 class="sisalud-title">SISALUD</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item active">
+                <i class="fas fa-home"></i> Inicio
+            </a>
+            <a href="{{ url_for('datos_personales') }}" class="nav-item">
+                <i class="fas fa-user"></i> Datos Personales
+            </a>
+            <a href="{{ url_for('carga_documentos') }}" class="nav-item">
+                <i class="fas fa-file-upload"></i> Carga de Documentos
+            </a>
+            <a href="{{ url_for('consulta_citas') }}" class="nav-item">
+                <i class="fas fa-calendar-check"></i> Consulta de Citas
+            </a>
+            <a href="{{ url_for('cerrar_sesion') }}" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </nav>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Barra superior -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i>
+                <span class="notifications">
+                    <i class="fas fa-bell"></i>
+                </span>
+            </div>
+        </div>
+
+        <!-- Contenido del dashboard -->
+        <div class="dashboard-content">
+            <!-- Estadísticas de Salud -->
+            <div class="stats-card">
+                <h3>
+                    <i class="fas fa-chart-bar"></i>
+                    Estadísticas de Salud
+                </h3>
+                <p>En nuestra plataforma, se han gestionado más de "500,000 consultas médicas" en 2025.</p>
+            </div>
+
+            <!-- Últimas actualizaciones -->
+            <div class="updates-card">
+                <h3>
+                    <i class="fas fa-bell"></i>
+                    Últimas actualizaciones
+                </h3>
+                <div class="update-item">
+                    <span class="check-icon">✓</span>
+                    <p>Nuevo módulo de telemedicina disponible para consultas virtuales.</p>
+                </div>
+            </div>
+
+            <!-- Próximamente -->
+            <div class="coming-soon-card">
+                <h3>Muy Pronto...</h3>
+                <p>Nuevas funcionalidades y mejoras en camino.</p>
+            </div>
+
+            {% if usuario.tipo == 'doctor' %}
+            <!-- Sección específica para doctores -->
+            <div class="appointments-card">
+                <h3>Citas del día</h3>
+                <div class="appointments-list">
+                    {% if citas_hoy %}
+                        {% for cita in citas_hoy %}
+                        <div class="appointment-item">
+                            <span class="time">{{ cita.fecha.strftime('%H:%M') }}</span>
+                            <span class="patient">{{ cita.paciente.nombre }}</span>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No hay citas programadas para hoy</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if usuario.tipo == 'paciente' %}
+            <!-- Sección específica para pacientes -->
+            <div class="next-appointment-card">
+                <h3>Próxima Cita</h3>
+                {% if proxima_cita %}
+                    <div class="appointment-details">
+                        <p>Fecha: {{ proxima_cita.fecha.strftime('%d/%m/%Y %H:%M') }}</p>
+                        <p>Doctor: {{ proxima_cita.doctor.nombre }}</p>
+                    </div>
+                {% else %}
+                    <p>No tienes citas programadas</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #8B0000;
+    color: white;
+    padding: 20px 0;
+}
+
+.logo-container {
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+.sisalud-title {
+    color: #FFD700;
+    margin: 0;
+    font-size: 24px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item {
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.nav-item i {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notifications {
+    position: relative;
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.stats-card, .updates-card, .coming-soon-card, .appointments-card, .next-appointment-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.update-item {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.check-icon {
+    color: #4CAF50;
+    margin-right: 10px;
+}
+
+.appointment-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.time {
+    font-weight: bold;
+    color: #8B0000;
+}
+
+@media (max-width: 768px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .main-content {
+        padding: 10px;
+    }
+}
+</style>
+{% endblock %} 

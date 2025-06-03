@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}Consulta de Citas - SISALUD{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <h2 class="sisalud-title">SISALUD</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item">
+                <i class="fas fa-home"></i> Inicio
+            </a>
+            <a href="{{ url_for('datos_personales') }}" class="nav-item">
+                <i class="fas fa-user"></i> Datos Personales
+            </a>
+            <a href="{{ url_for('carga_documentos') }}" class="nav-item">
+                <i class="fas fa-file-upload"></i> Carga de Documentos
+            </a>
+            <a href="{{ url_for('consulta_citas') }}" class="nav-item active">
+                <i class="fas fa-calendar-check"></i> Consulta de Citas
+            </a>
+            <a href="{{ url_for('cerrar_sesion') }}" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </nav>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Barra superior -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i>
+                <span class="notifications">
+                    <i class="fas fa-bell"></i>
+                </span>
+            </div>
+        </div>
+
+        <!-- Contenido de consulta de citas -->
+        <div class="appointments-content">
+            <div class="appointments-card">
+                <h3>
+                    <i class="fas fa-calendar-alt"></i>
+                    Mis Citas
+                </h3>
+                
+                {% if citas %}
+                <div class="appointments-list">
+                    {% for cita in citas %}
+                    <div class="appointment-item">
+                        <div class="appointment-date">
+                            <i class="fas fa-clock"></i>
+                            <span>{{ cita.fecha.strftime('%d/%m/%Y %H:%M') }}</span>
+                        </div>
+                        <div class="appointment-details">
+                            {% if usuario.tipo == 'doctor' %}
+                            <span class="patient-name">
+                                <i class="fas fa-user"></i>
+                                Paciente: {{ cita.paciente.nombre }}
+                            </span>
+                            {% else %}
+                            <span class="doctor-name">
+                                <i class="fas fa-user-md"></i>
+                                Doctor: {{ cita.doctor.nombre }}
+                            </span>
+                            {% endif %}
+                            <span class="appointment-type">
+                                <i class="fas fa-tag"></i>
+                                Tipo: {{ cita.tipo }}
+                            </span>
+                        </div>
+                        <div class="appointment-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-edit"></i>
+                                Modificar
+                            </button>
+                            <button class="btn btn-danger btn-sm">
+                                <i class="fas fa-times"></i>
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-appointments">
+                    <i class="fas fa-calendar-times"></i>
+                    <p>No hay citas programadas</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.appointments-content {
+    padding: 20px;
+}
+
+.appointments-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.appointments-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.appointment-item {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+}
+
+.appointment-date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.appointment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.appointment-details span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.appointment-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.no-appointments {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.no-appointments i {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .appointment-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .appointment-actions {
+        justify-content: flex-end;
+    }
+}
+</style>
+{% endblock %} 

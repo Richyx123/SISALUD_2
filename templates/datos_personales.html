@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Datos Personales - SISALUD{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <h2 class="sisalud-title">SISALUD</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item">
+                <i class="fas fa-home"></i> Inicio
+            </a>
+            <a href="{{ url_for('datos_personales') }}" class="nav-item active">
+                <i class="fas fa-user"></i> Datos Personales
+            </a>
+            <a href="{{ url_for('carga_documentos') }}" class="nav-item">
+                <i class="fas fa-file-upload"></i> Carga de Documentos
+            </a>
+            <a href="{{ url_for('consulta_citas') }}" class="nav-item">
+                <i class="fas fa-calendar-check"></i> Consulta de Citas
+            </a>
+            <a href="{{ url_for('cerrar_sesion') }}" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </nav>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Barra superior -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i>
+                <span class="notifications">
+                    <i class="fas fa-bell"></i>
+                </span>
+            </div>
+        </div>
+
+        <!-- Contenido de datos personales -->
+        <div class="personal-data-content">
+            <div class="data-card">
+                <h3>
+                    <i class="fas fa-id-card"></i>
+                    Información Personal
+                </h3>
+                <div class="data-section">
+                    <div class="data-item">
+                        <label>ID Único:</label>
+                        <span>{{ usuario.id_unico }}</span>
+                    </div>
+                    <div class="data-item">
+                        <label>Nombre:</label>
+                        <span>{{ usuario.nombre }}</span>
+                    </div>
+                    <div class="data-item">
+                        <label>Correo:</label>
+                        <span>{{ usuario.email }}</span>
+                    </div>
+                    <div class="data-item">
+                        <label>Tipo de Usuario:</label>
+                        <span>{{ usuario.tipo|title }}</span>
+                    </div>
+                    {% if usuario.tipo == 'paciente' %}
+                    <div class="data-item">
+                        <label>Edad:</label>
+                        <span>{{ usuario.edad if usuario.edad else 'No especificada' }}</span>
+                    </div>
+                    {% endif %}
+                    {% if usuario.tipo == 'doctor' %}
+                    <div class="data-item">
+                        <label>Especialidad:</label>
+                        <span>{{ usuario.especialidad if usuario.especialidad else 'No especificada' }}</span>
+                    </div>
+                    <div class="data-item">
+                        <label>Cédula Profesional:</label>
+                        <span>{{ usuario.cedula if usuario.cedula else 'No especificada' }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="data-item">
+                        <label>Fecha de Registro:</label>
+                        <span>{{ usuario.fecha_registro.strftime('%d/%m/%Y') }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.personal-data-content {
+    padding: 20px;
+}
+
+.data-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.data-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.data-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.data-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.data-item label {
+    font-weight: bold;
+    color: #666;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.data-item span {
+    color: #333;
+    font-size: 1.1em;
+}
+
+@media (max-width: 768px) {
+    .data-section {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %} 

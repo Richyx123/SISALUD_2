@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Usuario{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h3 class="card-title mb-0">Editar Usuario</h3>
+                <p class="mb-0">ID Único: {{ usuario.id_unico }}</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre completo:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ usuario.nombre }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo electrónico:</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ usuario.email }}" required>
+                    </div>
+
+                    {% if usuario.tipo == 'paciente' %}
+                    <div class="mb-3">
+                        <label for="edad" class="form-label">Edad:</label>
+                        <input type="number" class="form-control" id="edad" name="edad" value="{{ usuario.edad }}">
+                    </div>
+                    {% else %}
+                    <div class="mb-3">
+                        <label for="especialidad" class="form-label">Especialidad:</label>
+                        <input type="text" class="form-control" id="especialidad" name="especialidad" value="{{ usuario.especialidad }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cedula" class="form-label">Cédula profesional:</label>
+                        <input type="text" class="form-control" id="cedula" name="cedula" value="{{ usuario.cedula }}">
+                    </div>
+                    {% endif %}
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                        <a href="{{ url_for('lista_usuarios') }}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

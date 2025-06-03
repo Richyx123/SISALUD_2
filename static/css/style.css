@@ -1,0 +1,942 @@
+/* Variables y configuración global */
+:root {
+    --primary-color: #8B0000;  /* Color vino tinto */
+    --secondary-color: #FFD700; /* Amarillo dorado */
+    --text-color: #333;
+    --background-color: white;
+    --nav-background: #FFD700;
+    --footer-background: #8B0000;
+    --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+}
+
+/* Animaciones Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* Estilos base */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--nav-background);
+    padding: 0.5rem 0;
+    margin: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.nav-links a:hover {
+    color: #600000;
+    transform: translateY(-2px);
+}
+
+/* Contenido principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.welcome-section {
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+.welcome-section h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* Tarjetas de información */
+.info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.card p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+/* Logo central */
+.logo-container {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.logo-container img {
+    max-width: 300px;
+    height: auto;
+}
+
+/* Footer */
+.footer {
+    background: var(--footer-background);
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .info-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+}
+
+/* Efectos adicionales */
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #600000;
+    transform: translateY(-2px);
+}
+
+/* Animaciones para elementos */
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Estilos para las secciones de información */
+.info-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    gap: 2rem;
+}
+
+.info-box {
+    flex: 1;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.info-box h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.info-box p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+/* Lista de características */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.feature-list li {
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+    color: #666;
+}
+
+.feature-list li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+}
+
+/* Logo y caption */
+.logo-caption {
+    margin-top: 1rem;
+    color: var(--primary-color);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+/* Estadísticas */
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* FAQ */
+.faq-list {
+    margin: 1rem 0;
+}
+
+.faq-list details {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.faq-list details summary {
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.faq-list details[open] {
+    padding-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.faq-list details p {
+    margin: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--primary-color);
+}
+
+/* Sección CTA */
+.cta-section {
+    text-align: center;
+    margin: 3rem 0;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.cta-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Animaciones adicionales */
+.count-up {
+    animation: countUp 2s ease-out forwards;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive para los nuevos elementos */
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .feature-list li {
+        font-size: 0.9rem;
+    }
+}
+
+/* Estilos para formularios de autenticación */
+.auth-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.auth-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.form-container {
+    padding: 1rem;
+}
+
+.auth-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.auth-form input,
+.auth-form select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.1);
+}
+
+.form-actions {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.form-links {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.form-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.form-links p {
+    margin-top: 1rem;
+    color: #666;
+}
+
+/* Estilos para el Dashboard */
+.dashboard-container {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 1400px;
+}
+
+.sidebar {
+    width: 250px;
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+.user-info {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.user-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.dashboard-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dashboard-nav a {
+    padding: 0.8rem 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.dashboard-nav a:hover,
+.dashboard-nav a.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card,
+.updates-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.update-item {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.check-icon {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.coming-soon {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.doctor-section,
+.patient-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.appointment-list {
+    margin-top: 1rem;
+}
+
+.appointment-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem;
+    border-bottom: 1px solid #eee;
+}
+
+.appointment-item:last-child {
+    border-bottom: none;
+}
+
+.health-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.health-item {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.health-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.health-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.health-item li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.health-item li:last-child {
+    border-bottom: none;
+}
+
+/* Responsive para el Dashboard */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+
+    .health-summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Estilos para mensajes de alerta */
+.alert {
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    position: relative;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Dashboard Layout */
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px 0;
+}
+
+.logo-container {
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+.sisalud-title {
+    color: var(--secondary-color);
+    margin: 0;
+    font-size: 24px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item {
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.nav-item i {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notifications {
+    position: relative;
+}
+
+/* Cards */
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.stats-card, .updates-card, .coming-soon-card, .appointments-card, .next-appointment-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+.update-item {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.check-icon {
+    color: #4CAF50;
+    margin-right: 10px;
+}
+
+.appointment-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.time {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Datos Personales */
+.personal-data-content {
+    padding: 20px;
+}
+
+.data-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+.data-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.data-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.data-item label {
+    font-weight: bold;
+    color: #666;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.data-item span {
+    color: #333;
+    font-size: 1.1em;
+}
+
+/* Carga de Documentos */
+.documents-content {
+    padding: 20px;
+    display: grid;
+    gap: 20px;
+}
+
+.upload-card, .documents-list-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+.file-input-container {
+    text-align: center;
+}
+
+.file-input-container input[type="file"] {
+    display: none;
+}
+
+.file-input-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-input-label:hover {
+    border-color: var(--primary-color);
+    background-color: #f8f9fa;
+}
+
+.selected-files {
+    margin-top: 20px;
+}
+
+/* Consulta de Citas */
+.appointments-content {
+    padding: 20px;
+}
+
+.appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.appointment-date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.appointment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.appointment-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.no-appointments {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.no-appointments i {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .main-content {
+        padding: 10px;
+    }
+
+    .data-section {
+        grid-template-columns: 1fr;
+    }
+
+    .appointment-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .appointment-actions {
+        justify-content: flex-end;
+    }
+} 

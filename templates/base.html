@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SISALUD{% endblock %}</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Estilos base -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    {% if not hide_nav and 'usuario_id' not in session %}
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('inicio') }}" class="logo">SISALUD</a>
+            <div class="nav-links">
+                <a href="{{ url_for('inicio') }}">INICIO</a>
+                <a href="{{ url_for('registro') }}">REGÍSTRATE</a>
+                <a href="{{ url_for('login') }}">INICIAR SESIÓN</a>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    {% if not hide_footer %}
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SISALUD - Todos los derechos reservados</p>
+        </div>
+    </footer>
+    {% endif %}
+
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

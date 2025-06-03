@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - SISALUD{% endblock %}
+
+{% block content %}
+<div class="welcome-section fade-in">
+    <h1>Bienvenido a SISALUD</h1>
+    <p>Plataforma digital enfocada en el bienestar y gestión médica de los pacientes. Innovamos en el cuidado de la salud con tecnología de vanguardia y atención personalizada.</p>
+</div>
+
+<div class="info-section">
+    <div class="info-box fade-in">
+        <h3>¿Qué hacemos?</h3>
+        <p>Brindamos un sistema eficiente para el registro y seguimiento de consultas médicas.</p>
+        <ul class="feature-list">
+            <li>Gestión de citas en tiempo real</li>
+            <li>Expedientes médicos digitales</li>
+            <li>Seguimiento de tratamientos</li>
+            <li>Recordatorios automáticos</li>
+            <li>Telemedicina integrada</li>
+        </ul>
+    </div>
+    
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='img/Icon 1.jpg') }}" alt="SISALUD Logo" class="pulse-animation">
+        <p class="logo-caption">Innovación en Salud Digital</p>
+    </div>
+</div>
+
+<div class="info-section">
+    <div class="info-box fade-in">
+        <h3>Datos de salud</h3>
+        <p>Al 31 de marzo de 2025, nuestro sistema ha gestionado más de 1 millón de registros.</p>
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number">1M+</span>
+                <span class="stat-label">Registros Médicos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Médicos Activos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Satisfacción</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-box fade-in">
+        <h3>Preguntas Frecuentes</h3>
+        <p>Encuentra respuestas sobre afiliación, citas médicas y más.</p>
+        <div class="faq-list">
+            <details>
+                <summary>¿Cómo agendar una cita?</summary>
+                <p>Ingresa a tu cuenta y selecciona "Agendar Cita" en el menú principal.</p>
+            </details>
+            <details>
+                <summary>¿Cómo acceder a mi historial médico?</summary>
+                <p>Disponible en la sección "Mi Expediente" después de iniciar sesión.</p>
+            </details>
+            <details>
+                <summary>¿Ofrecen consultas en línea?</summary>
+                <p>Sí, contamos con servicio de telemedicina disponible 24/7.</p>
+            </details>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section fade-in">
+    <h3>Comienza tu experiencia en salud digital</h3>
+    <p>Únete a la revolución en el cuidado de la salud</p>
+    <div class="cta-buttons">
+        <a href="{{ url_for('registro') }}" class="btn btn-primary">Crear Cuenta</a>
+        <a href="#" class="btn btn-secondary">Ver Demo</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Animación para los números estadísticos
+    document.addEventListener('DOMContentLoaded', function() {
+        const stats = document.querySelectorAll('.stat-number');
+        stats.forEach(stat => {
+            stat.style.opacity = '0';
+            setTimeout(() => {
+                stat.style.opacity = '1';
+                stat.classList.add('count-up');
+            }, 500);
+        });
+    });
+</script>
+{% endblock %} 

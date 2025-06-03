@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio de Sesión - SISALUD{% endblock %}
+
+{% block content %}
+<div class="auth-container fade-in">
+    <h2>Inicio de Sesión en SISALUD</h2>
+    <p class="auth-subtitle">Ingresa tu ID y contraseña para acceder</p>
+
+    <div class="form-container">
+        <h3>Accede a tu cuenta</h3>
+        <form action="{{ url_for('login') }}" method="POST" class="auth-form" id="loginForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <label for="id_unico">ID único:</label>
+                <input type="text" id="id_unico" name="id_unico" required 
+                       pattern="^(DOC|PAC|USR)[0-9]{9}$" 
+                       title="ID debe comenzar con DOC, PAC o USR seguido de 9 números">
+                <small class="form-text text-muted">Ejemplo: DOC123456789 o PAC123456789</small>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required>
+                    <button type="button" class="toggle-password" title="Mostrar/ocultar contraseña">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </div>
+
+            <div class="form-links">
+                <a href="{{ url_for('recuperar_password') }}">¿Olvidaste tu contraseña?</a>
+                <p>¿No tienes una cuenta? <a href="{{ url_for('registro') }}">Regístrate aquí</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('loginForm');
+    const idInput = document.getElementById('id_unico');
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.querySelector('.toggle-password');
+
+    // Validación del ID
+    idInput.addEventListener('input', function() {
+        const isValid = /^(DOC|PAC|USR)[0-9]{9}$/.test(this.value);
+        this.setCustomValidity(isValid ? '' : 'ID debe comenzar con DOC, PAC o USR seguido de 9 números');
+    });
+
+    // Mostrar/ocultar contraseña
+    togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('fa-eye');
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+
+    // Validación del formulario
+    form.addEventListener('submit', function(e) {
+        if (!idInput.value.trim() || !passwordInput.value.trim()) {
+            e.preventDefault();
+            alert('Por favor completa todos los campos');
+        }
+    });
+});
+</script>
+{% endblock %} 

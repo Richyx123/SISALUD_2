@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDE Web - Análisis de Código</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IDE Web para Análisis de Código</h1>
+        </header>
+        
+        <main>
+            <div class="editor-container">
+                <textarea id="editor"></textarea>
+            </div>
+            
+            <div class="controls">
+                <button onclick="analizarLexico()">Análisis Léxico</button>
+                <button onclick="analizarSintactico()">Análisis Sintáctico</button>
+                <button onclick="ejecutarTuring()">Máquina de Turing</button>
+            </div>
+            
+            <div class="results">
+                <h2>Resultados</h2>
+                <div id="resultado"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 

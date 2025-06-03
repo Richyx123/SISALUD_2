@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Usuarios{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2 class="mb-3">Usuarios Registrados</h2>
+            
+            <!-- Estadísticas -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Usuarios</h5>
+                            <h2 class="card-text">{{ estadisticas.total }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Pacientes</h5>
+                            <h2 class="card-text">{{ estadisticas.pacientes }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Doctores</h5>
+                            <h2 class="card-text">{{ estadisticas.doctores }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="mb-4">
+                <div class="btn-group" role="group" aria-label="Filtrar por tipo">
+                    <a href="{{ url_for('lista_usuarios', tipo='todos') }}" 
+                       class="btn btn-outline-primary {{ 'active' if tipo_actual == 'todos' }}">
+                        Todos
+                    </a>
+                    <a href="{{ url_for('lista_usuarios', tipo='paciente') }}"
+                       class="btn btn-outline-primary {{ 'active' if tipo_actual == 'paciente' }}">
+                        Pacientes
+                    </a>
+                    <a href="{{ url_for('lista_usuarios', tipo='doctor') }}"
+                       class="btn btn-outline-primary {{ 'active' if tipo_actual == 'doctor' }}">
+                        Doctores
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Tabla de Usuarios -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID Único</th>
+                                    <th>Tipo</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Detalles</th>
+                                    <th>Fecha de Registro</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for usuario in usuarios %}
+                                <tr>
+                                    <td>{{ usuario.id_unico }}</td>
+                                    <td>
+                                        <span class="badge {% if usuario.tipo == 'doctor' %}bg-info{% else %}bg-success{% endif %}">
+                                            {{ usuario.tipo|title }}
+                                        </span>
+                                    </td>
+                                    <td>{{ usuario.nombre }}</td>
+                                    <td>
+                                        <a href="mailto:{{ usuario.email }}" class="text-decoration-none">
+                                            {{ usuario.email }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {% if usuario.tipo == 'doctor' %}
+                                            <strong>Especialidad:</strong> {{ usuario.especialidad or 'No especificada' }}<br>
+                                            <strong>Cédula:</strong> {{ usuario.cedula or 'No especificada' }}
+                                        {% else %}
+                                            <strong>Edad:</strong> {{ usuario.edad or 'No especificada' }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span title="{{ usuario.fecha_registro }}">
+                                            {{ usuario.fecha_registro.strftime('%d/%m/%Y %H:%M') if usuario.fecha_registro else 'No disponible' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-sm btn-outline-primary" 
+                                                    onclick="window.location.href='#'">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </button>
+                                            <form action="{{ url_for('desactivar_usuario', id=usuario.id) }}" 
+                                                  method="POST" style="display: inline;"
+                                                  onsubmit="return confirm('¿Estás seguro de que deseas desactivar este usuario?')">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-trash"></i> Desactivar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="7" class="text-center">No hay usuarios registrados</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+{% endblock %} 

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Carga de Documentos - SISALUD{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <h2 class="sisalud-title">SISALUD</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item">
+                <i class="fas fa-home"></i> Inicio
+            </a>
+            <a href="{{ url_for('datos_personales') }}" class="nav-item">
+                <i class="fas fa-user"></i> Datos Personales
+            </a>
+            <a href="{{ url_for('carga_documentos') }}" class="nav-item active">
+                <i class="fas fa-file-upload"></i> Carga de Documentos
+            </a>
+            <a href="{{ url_for('consulta_citas') }}" class="nav-item">
+                <i class="fas fa-calendar-check"></i> Consulta de Citas
+            </a>
+            <a href="{{ url_for('cerrar_sesion') }}" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </nav>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Barra superior -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i>
+                <span class="notifications">
+                    <i class="fas fa-bell"></i>
+                </span>
+            </div>
+        </div>
+
+        <!-- Contenido de carga de documentos -->
+        <div class="documents-content">
+            <div class="upload-card">
+                <h3>
+                    <i class="fas fa-file-upload"></i>
+                    Cargar Documentos
+                </h3>
+                <form action="{{ url_for('carga_documentos') }}" method="POST" enctype="multipart/form-data" class="upload-form">
+                    {{ csrf_token() }}
+                    <div class="upload-section">
+                        <div class="file-input-container">
+                            <input type="file" id="documento" name="documento" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                            <label for="documento" class="file-input-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Seleccionar archivos</span>
+                            </label>
+                            <small class="text-muted">Formatos permitidos: PDF, DOC, DOCX, JPG, JPEG, PNG</small>
+                        </div>
+                        <div class="selected-files" id="selectedFiles">
+                            <!-- Los archivos seleccionados se mostrarán aquí -->
+                        </div>
+                        <button type="submit" class="btn btn-primary upload-btn">
+                            <i class="fas fa-upload"></i>
+                            Subir Documentos
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="documents-list-card">
+                <h3>
+                    <i class="fas fa-folder-open"></i>
+                    Documentos Cargados
+                </h3>
+                <div class="documents-list">
+                    <p class="no-documents">No hay documentos cargados aún.</p>
+                    <!-- Aquí se listarán los documentos cargados -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('documento');
+    const selectedFiles = document.getElementById('selectedFiles');
+
+    fileInput.addEventListener('change', function() {
+        selectedFiles.innerHTML = '';
+        Array.from(this.files).forEach(file => {
+            const fileDiv = document.createElement('div');
+            fileDiv.className = 'selected-file';
+            fileDiv.innerHTML = `
+                <i class="fas fa-file"></i>
+                <span>${file.name}</span>
+                <small>(${(file.size / 1024).toFixed(2)} KB)</small>
+            `;
+            selectedFiles.appendChild(fileDiv);
+        });
+    });
+});
+</script>
+{% endblock %} 
